@@ -1,0 +1,31 @@
+version: '3.6'
+
+services:
+  data-generator:
+    build:
+      context: arcio-db
+      dockerfile: Dockerfile
+    healthcheck:
+      test: [ "CMD", "pgrep", "-a", "init_database.sh" ]
+      timeout: 5s
+      interval: 10s
+      retries: 0
+    depends_on:
+      postgres:
+        condition: service_healthy
+  postgres:
+    image: postgres:14
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "arcio-dev", "-U", "arcio" ]
+      timeout: 45s
+      interval: 10s
+      retries: 20
+    restart: always
+    environment:
+      - POSTGRES_DB=arcio-dev
+      - POSTGRES_USER=arcio
+      - POSTGRES_PASSWORD=password123
+    volumes:
+      - ./database:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432

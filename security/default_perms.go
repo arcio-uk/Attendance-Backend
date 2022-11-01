@@ -1,0 +1,19 @@
+package security
+
+// Default permissions - Students
+// A student can see everything that they are in
+const PERMS_DEFAULT_STUDENT_GLOBAL = PERMS_READ_SELF
+const PERMS_DEFAULT_STUDENT_MODULE = PERMS_READ_SELF
+const PERMS_DEFAULT_STUDENT_MODULE_GROUP = PERMS_READ_SELF
+const PERMS_DEFAULT_STUDENT_ATTENDANCE = PERMS_READ_SELF | PERMS_CREATE_SELF
+
+// Default permissions - Lecturers
+// A teacher can only see their modules and, have complete control of their modules
+const PERMS_DEFAULT_LECTURER_GLOBAL = PERMS_READ_CHILDREN | PERMS_READ_ALL_SELF
+const PERMS_DEFAULT_LECTURER_MODULE = PERMS_READ_SELF | PERMS_CREATE_SELF | PERMS_UPDATE_SELF | PERMS_DELETE_SELF
+const PERMS_DEFAULT_LECTURER_MODULE_GROUP = PERMS_READ_SELF | PERMS_CREATE_SELF | PERMS_UPDATE_SELF | PERMS_DELETE_SELF
+const PERMS_DEFAULT_LECTURER_ATTENDANCE = PERMS_READ_SELF | PERMS_CREATE_SELF | PERMS_UPDATE_SELF | PERMS_DELETE_SELF
+
+// Default permissions - Admin Team
+// Members of the admin team manage modules and attendance
+const PERMS_DEFAULT_ADMIN = PERMS_READ_CHILDREN | PERMS_CREATE_CHILDREN | PERMS_UPDATE_CHILDREN | PERMS_DELETE_CHILDREN | PERMS_READ_ALL_CHILDREN // The admin team has the admin global permission, this should be used for all scopes
